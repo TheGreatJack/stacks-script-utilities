@@ -74,7 +74,7 @@ def vcf_reader(vcf_file, population_dictionary):
         line = f.readline()
         # Split line by tab
         line = line.strip().split("\t")
-        previous_locus = line[0]
+        previous_locus = line[2].split(":")[0]
         info_field = info_field_extractor(line[7]) 
         data_of_locus = line[9:]
 
@@ -91,7 +91,7 @@ def vcf_reader(vcf_file, population_dictionary):
                 break        
             # Split line by tab
             line = line.strip().split("\t")
-            current_locus = line[0]
+            current_locus = line[2].split(":")[0]
             info_field = info_field_extractor(line[7]) 
             data_of_locus = line[9:]
             if current_locus != previous_locus:
@@ -168,7 +168,7 @@ def locus_data_processor(locus_data, ns_data, vcf_sample_names , unique_populati
     # Normalize proportions
     locus_total_samples = sum(population_proportions.values())
     for population, proportion in population_proportions.items():
-        print("norm",proportion,    locus_total_samples)
+        #print("norm",proportion,    locus_total_samples)
         population_proportions[population] = proportion / locus_total_samples
     
     # Return population proportions<ctrl63> 
